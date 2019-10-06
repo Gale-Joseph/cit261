@@ -1,3 +1,8 @@
 *{
     font-family: monospace;
 }
+
+ol li{
+    font-size: 20px;
+    padding: 4px;
+}
