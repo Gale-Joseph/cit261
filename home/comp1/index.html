@@ -13,22 +13,21 @@
 
     </header>
     <main>
-        <h1>Basic Javascript Competency</h1>
-        <section>
-            <h2>Variables</h2>             
-        </section>
-        <section>
-                <h2>Conditional Statements</h2>             
-        </section>
-        <section>
-            <h2>Arrays & Associative Arrays</h2>             
-        </section>
-        <section>
-            <h2>Functions & Parameters</h2>             
-        </section>
-        <section>
-            <h2>Loops</h2>             
-        </section>
+      
+        <button type="button" onclick="seeCarTotal()">See Car Total</button>
+        <div id="totalCarsOutput"></div>
+
+        <input type="text" id="carNum">
+        <button type="button" onclick="checkMyCar()">Check car by index</button>
+        <div id="checkCarDiv"></div>
+
+        <button type="button" onclick="printArray()">See Inventory</button>
+        <div id="inventoryOutput"></div>
+
+        <!--Use For Loop to see if car is in inventory-->
+        <input type="text" id="carCheck">
+        <button type="button" onclick="checkByCar">Search for Car</button>
+        <div id="checkByCarOutput"></div>
     </main>
     
 </body>
