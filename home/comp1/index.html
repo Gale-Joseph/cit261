@@ -22,7 +22,7 @@
                 <h2>App:Word Counter and Dictionary Creator</h2>
 
                 <div class="textbox">   
-                    <p>1. Enter two words. A function with parameters will combine them.</p>         
+                    <p>1. Enter two words. A function with parameters will print them into a single string.</p>         
                     <input type=text id="input1"/>
                     <input type=text id="input2"/>
                     <input type=button value="Click me" onclick="foo(document.getElementById('input1').value,document.getElementById('input2').value)"/>
@@ -32,12 +32,14 @@
                 
                 
                 <div class="textbox">            
-                <p>2. Enter the text here:</p>
+                <p>2. Enter the text here. The text will be saved to variable for later use.</p>
                 <input type=text name="inputText" id="inputText" class="textInput"> 
                 </div>
 
                 <div class="textbox">
-                    <p>3. Enter the word you'd like to count</p>
+                    <p>3. Enter the word you'd like to count. A function 
+                        will use a While loop and For loop to count how
+                         many times the word occurs in the string you entered above.</p>
                     <input type=text name="searchWord" id="searchWord">
                     <div>
                         <button type=button onclick="myFunction()">Get word count</button>
@@ -48,8 +50,9 @@
                 
                 <div class="dictionary">
                     <p><strong>4. Click here to see an ordered dictionary.</strong><br>
-                        It lists the number of times a word or symbol is found in the text 
-                        that you entered.
+                        The button will call a function which contains nested While loops, arrays, and 
+                        associative arrays to create a list of words in the string and count how many 
+                        times each occurs.
                     </p>
                     <button type=button onclick="createDictionary()">See Dictionary</button>
 
