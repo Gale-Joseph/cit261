@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="main.css">
+        <script type="text/javascript" src="main.js"></script>
+        <title>Comp3</title>
+    </head>
+<body>
+    <h1>JSON Parse, Stringify</h1>
+
+    <div class="tutorial">
+        <p>1. This demonstration will take you through the process of 
+        turning a JSON object into a string and then turning it back
+        into an object. Click below to get started:  </p>
+        <input type=button value="Create JSON variable" onclick="myFunction()">
+        <div id="demo"></div>
+        <p>Click on the buttons below to 
+            to get informatin from the JSON object using 'myJson.title',
+            'myJson.isbn', and 'myJson.shortDescription' respectively.
+        </p>
+    </div>
+    
+    <div class="tutorial">
+        <input type=button value="Print Title" onclick="getTitle()">
+        <div id="demo2"></div>
+    </div>
+    
+    <div class="tutorial">
+        <input type=button value="Print ISBN" onclick="getIsbn()">
+        <div id="demo3"></div>
+    </div>
+    
+    <div class="tutorial">
+        <input type=button value="Print Description" onclick="getDescription()">
+        <div id="demo4"></div>
+    </div>
+    
+    <div class="tutorial">
+        <p>2. Now we are going to turn 'myJson' into a string so it can be
+            easily passed to a server or client. A new variable 'makeString' 
+            now contains the value of 'myJson'. When you click the button 
+            below the object will have been turned into a string and the entire 
+            string will be printed from the function. 
+        </p>
+        <input type=button value="Stringify JSON" onclick="stringifyMe()">
+        <div id="demo5"></div>
+    </div>
+    
+    <div class="tutorial">
+        <p>3. Now we will parse the string back into an object. A new
+            variable called 'makeParse' has now been declared and has 
+            a parsed version of 'makeString' as the value. When you click
+            the button below, the a function will be called which will show
+            that typeOf(makeParse) will show an object and not a string.</p>
+        <input type=button value="Parse into JSON" onclick="parseMe()">
+        <div id="demo6"></div>
+    </div>
+</body>
+</html>
