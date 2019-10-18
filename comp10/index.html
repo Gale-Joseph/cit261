@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Competency 10</title>
+    <style>
+        canvas {
+            display:block;
+            border: solid black;
+            
+        }
+
+        .audio{
+            display: flex;
+            flex-flow: wrap;
+            justify-content: space-between;
+            margin-bottom: 4em;
+            background-color: #71783C;
+        }
+
+        .audioChild{
+            margin: .5em;
+            width: 25%;
+            border: solid white;
+            padding: 1em;
+        }
+        .video{
+            display: flex;
+            flex-flow: wrap;
+            margin-bottom: 4em;
+        }
+        .videoChild{
+            width: 50%;
+            background-color: #4C2D15;
+            justify-content: center;
+            
+        }
+        .videoChild h2{
+            color: white;
+        }
+
+        main{
+            padding: 2em;
+        }
+        .descriptionText{
+            font-size: 1.25em;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+
+        
+        </style>
+</head>
+<body>
+    <main>
+        <h1>Competency 10: Audio Tags, Video Tags, Canvas Tag</h1>
+        <h2>Audio Tags</h2>
+        <p class="descriptionText">These three audio tags practice using the attributes of autoplay,loop, and muted.</p>
+        <div class="audio">           
+            <div class="audioChild">
+            <h2>Audio tag, autoplay attribute</h2>
+            <p>This audio tag is set to autoplay.</p>
+            <audio controls autoplay>            
+                    <source src="/cit261/comp10/media/autoplay.mp3" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+            </audio>
+            </div>
+
+            <div class="audioChild">
+            <h2>Audio tag, loop attribute</h2>
+            <p>This audio tag is set to loop and will play until stopped.</p>
+            <audio controls loop>           
+                    <source src="/cit261/comp10/media/loopaudio.mp3" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+            </audio>
+            </div>
+
+            <div class="audioChild">
+            <h2>Audio tag, muted attribute</h2>
+            <p>This audio tag is set muted, meaning it will not play until unmuted.</p>
+            <audio controls muted>           
+                    <source src="/cit261/comp10/media/muted.mp3" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+            </audio>
+            </div>  
+
+            <!-- <div class="audioChild">
+            <h2>Audio tag, preload attribute</h2>
+            <p>This audio tag is set to preload, meaning the sound loads with the page.</p>
+            <audio controls preload>           
+                    <source src="/cit261/comp10/media/preload.mp3" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+            </audio>
+            </div> -->
+    </div>
+
+    <h2>Video Tags</h2>
+    <p class="descriptionText">These two video tags practice using the attributes of loop and muted.</p>
+
+    <div class="video">
+        <div class="videoChild">
+        <h2>Video tag, loop attribute</h2>
+        <p>This video tag is set to loop.</p>
+        <video width="90%" controls loop>           
+                <source src="/cit261/comp10/media/movie.mp4" type="audio/mpeg">
+                Your browser does not support the video tag.
+        </video>
+        </div>
+
+        <div class="videoChild">
+        <h2>Video tag, muted attribute</h2>
+        <p>This video tag is set to muted.</p>
+        <video width="90%" controls muted>           
+                <source src="/cit261/comp10/media/movie.mp4" type="audio/mpeg">
+                Your browser does not support the video tag.
+        </video>
+        </div>
+    </div>
+
+
+    <div class="canvasDiv">
+            <h2>Canvas Tags</h2>
+    <p class="descriptionText">This canvas tag defines an area for drawing graphics with JavaScript.
+        The example below uses the .getContext(),.fillStyle(),.fillRect(), and .clearRect()
+        methods. 
+        <canvas id="canvas">Your browser does not support the canvas tag.</canvas>
+            <script>
+                var can = document.getElementById("canvas");
+                var ctx = can.getContext("2d");
+                ctx.fillStyle = "rgb(200, 0, 0)";
+                ctx.fillRect(10, 10, 50, 100);
+                ctx.clearRect(10,15,25,20);
+                ctx.clearRect(10,15,25,20);
+                ctx.clearRect(10,55,10,20);
+                ctx.fillStyle = "rgba(0, 0, 200, 0.3)";
+                ctx.fillRect(40, 25, 50, 100);
+            </script>
+    </div>
+</main>
+
+    
+</body>
+</html>
