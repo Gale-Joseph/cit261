@@ -1,0 +1,56 @@
+h1{
+    color: #79390D;
+}
+section{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flexbox;
+}
+section>p{
+    padding-top:.5em;
+    padding-bottom:.5em;
+    margin:0;
+}
+h2{
+    font-size: 1.25em;
+    margin-bottom: 0;
+    padding-bottom:0;
+    color: #3C0F01;
+    
+}
+
+span{
+    font-size: .85em;
+}
+
+.textbox{
+    margin-top: 2em;
+}
+.textbox>p{
+    margin-bottom: .5em;
+}
+
+button{
+    margin-top: .5em;
+}
+.dictionary>p{
+    margin: 0;
+}
+.dictionary{
+    margin-top: 2em;
+}
+.subsection{
+    margin-top: 2em;
+    margin-left: 2em;
+    border: solid;
+    border-color: #79390D;
+    padding: 0em 4em 4em 4em;
+    background-color:#EFBA61;
+    max-width: 700px;
+}
+.textInput{
+    width: 100%;
+}
+p{
+    color: #3C0F01;
+}
+
