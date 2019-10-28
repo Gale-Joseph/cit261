@@ -34,7 +34,11 @@ function createHero() {
 function seeHeroName() {
     myHero = new Hero("Olgath",10);
     document.getElementById("seeHeroNameDiv").innerHTML="Using a method " +
-    "with the following syntax gives us the name: myHero.heroname: " + myHero.heroname;
+    "with the following syntax gives us the name: myHero.heroname: " + 
+    myHero.heroname + "<br>" + 
+    "Our hero has "
+    
+    ;
 }
 
 function seeHeroProperties() {

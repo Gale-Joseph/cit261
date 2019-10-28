@@ -1,0 +1,33 @@
+#box1 {
+    width: 200px;
+    height: 200px;
+    background-color: yellow;
+}
+
+#box2 {
+    width: 200px;
+    height: 200px;
+    background-color: green;
+    position: absolute;
+    left:-400px;
+}
+
+#ball {
+    background-color: red;
+    width: 200px;
+    height: 200px;
+    /* animation-name: ball-bounce;
+    animation-duration:4s; */
+    animation: ball-bounce 4s infinite;
+
+}
+
+@keyframes ball-bounce{
+    from{background-color:green;}
+    to {background-color: yellow;}
+}
+
+@keyframes ball-bounce-new{
+    from{background-color:blue;}
+    to {background-color: orange;}
+}
