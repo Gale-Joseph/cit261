@@ -1,0 +1,109 @@
+<!--
+Designing, Defining, Triggering CSS3 Transitions
+
+https://www.youtube.com/watch?v=Nloq6uzF8RQ
+properties: 
+    -transition-duration: .5s; 250-500ms;
+    -transition-property: background, width, height, transform; //use comma, if not 
+        listed, then everything transitions, or use all
+    -transition-timing-function: ease-in, ease-out, linear, ease-in-out,
+        cubic-bezier(x,x,x,x);
+    -transition-delay
+    -transition: property time timing-function delay, transform transform ease out 1s;
+        //comma separate for more
+ex1: 
+.box:hover {
+    background: new color; //property needs to be named here as well
+    transform: rotate(45deg)
+}
+
+
+1. Overview - transition syntax, event syntax
+    Create a red box that changes color on :hover
+    print transition property
+    print .box:hover css
+    print explanation
+2. Demo to add, width, height, transform
+    a. hover to change width
+    b. hover to change height
+    c. hover to change transform
+3. Show time
+    a. hover over a box that changes height/width with 100ms
+    b.  hover over a box that changes height/width with 1000ms
+    c.  hover over a box that changes height/width with 20   00ms
+4. Functions
+<div class="container"><div class="box1">Linear</div></div>
+5. delay
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <script type="text/javascript" src="main.js"></script>
+    <title>Sandbox</title>
+</head>
+<body>
+    <header>
+
+    </header>
+    <main>
+        <section>
+                
+            <h1>Competency 11: <br><span>Designing, Defining, and Triggering CSS3
+                 Transitions without Custom Libraries (Thought Library).</span></h1>
+
+            <div class="subsection">
+                <h2>Transitions</h2>
+                <p>This page demonstrates the basics of employing the transition property 
+                    in CSS.</p>
+
+                <div class="tutorial">
+                        
+                        <p class="step">1. Hover over the red box to get started.</p>
+                        <div id="box1">
+                            <div id="subBox1">
+                                <p>In order to see this smooth transition, it 
+                                    was necessary to add a transition property to 
+                                    the original red box. The :hover for this div
+                                    activated 2 events: 1.) it changed the background
+                                    color and 2.)it made a nested-div change its display
+                                    from "none" to "block", so this note can be read.
+                                </p>
+                            </div>
+                        </div>
+                        
+
+                        <p class="step">2. Hover to see a demo of transition timing functions:</p>
+                        <p>*Each div has a 2 second transition time.</p>
+                            <div id="timingFunctions">
+                                <div id="ease-in"><p>ease-in - starts slow, ends fast</p></div>
+                                <div id="ease-out"><p>ease-out - starts fast, ends slow</p></div>
+                                <div id="ease-in-out"><p>ease-in-out<p></div>
+                            <div id="linear"><p>linear - even speed<p></div>
+                        </div>
+
+                        <p class="step">3. Hover to see the transition-delay property</p>
+                        <div id="step3">
+                        <div id="box3">
+                            <p>Time delay of 500ms</p>
+                        </div>
+                        <div id="box4">
+                                <p>Time delay of 1 second</p>
+                        </div>
+                        <div id="box5">
+                                <p>Time delay of 2 second</p>
+                        </div>
+                        </div>  
+
+
+                    </div>
+            </div>
+                
+        </section>
+    </main>
+    
+</body>
+</html>

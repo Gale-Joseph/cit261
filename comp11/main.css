@@ -1,0 +1,179 @@
+h1{
+    color: #79390D;
+}
+section{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flexbox;
+}
+section>p{
+    padding-top:.5em;
+    padding-bottom:.5em;
+    margin:0;
+}
+h2{
+    font-size: 1.25em;
+    margin-bottom: 0;
+    padding-bottom:0;
+    color: #3C0F01;
+    
+}
+
+span{
+    font-size: .85em;
+}
+
+.textbox{
+    margin-top: 2em;
+}
+.textbox>p{
+    margin-bottom: .5em;
+}
+
+button{
+    margin-top: .5em;
+}
+.dictionary>p{
+    margin: 0;
+}
+.dictionary{
+    margin-top: 2em;
+}
+.subsection{
+    margin-top: 2em;
+    margin-left: 2em;
+    border: solid;
+    border-color: #79390D;
+    padding: 0em 4em 4em 4em;
+    background-color:#EFBA61;
+    max-width: 700px;
+}
+.textInput{
+    width: 100%;
+}
+p{
+    color: #3C0F01;
+}
+
+.step{
+    font-weight: bold;
+    margin-top: 2.2em;
+}
+
+/* CSS transition divs */
+
+/*----------- Step 1 Demo ---------------*/
+
+#box1{
+    width: 30em;
+    height: 200px;    
+    background-color: #A42921;
+    transition: background-color 1s;
+}
+
+#subBox1{
+    display: none;
+    width: 25em;
+    height: 200px;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+/* nestedDiv display:none until parent div:hover*/
+#box1:hover{
+    background-color: #F6DEB0;
+}
+
+#box1:hover #subBox1{
+    display: block;
+}
+
+/*----------- Step 2 Demo ---------------*/
+
+#timingFunctions{
+    width: 100%;
+    background-color: #1A2426;
+}
+#timingFunctions:hover #ease-in{
+    width: 80%;
+}
+#timingFunctions:hover #ease-out{
+    width: 80%;
+}
+
+#timingFunctions:hover #ease-in-out{
+    width: 80%;
+}
+
+#timingFunctions:hover #linear{
+    width: 80%;
+}
+#ease-in { 
+    width: 20%;
+    height: 100px;
+    background-color: #E68A37;
+    transition: width 2s ease-in;
+}
+
+#ease-out { 
+    width: 20%;
+    height: 100px;
+    background-color: #E68A37;
+    transition: width 2s ease-out;
+}
+
+#ease-in-out { 
+    width: 20%;
+    height: 100px;
+    background-color: #E68A37;
+    transition: width 2s ease-in-out;
+}
+
+#linear { 
+    width: 20%;
+    height: 100px;
+    background-color: #E68A37;
+    transition: width 2s linear;
+}
+
+/*----------- Step 3 Demo ---------------*/
+
+#step3 p{
+    color: white;
+}
+#box3{
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    background-color: #A42921;
+    transition: width 1000ms linear 500ms;
+}
+#box4{
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    background-color: #A42921;
+    transition: width 1000ms linear 1000ms;
+}
+
+#box5{
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    background-color: #A42921;
+    transition: width 1000ms linear 2000ms;
+}
+
+#step3:hover #box3{
+    width: 400px;    
+}
+#step3:hover #box4{
+    width: 400px;    
+}
+#step3:hover #box5{
+    width: 400px;    
+}
+
+
+
+
+
