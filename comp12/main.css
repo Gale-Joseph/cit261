@@ -1,0 +1,395 @@
+h1{
+    color: #79390D;
+}
+section{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flexbox;
+}
+section>p{
+    padding-top:.5em;
+    padding-bottom:.5em;
+    margin:0;
+}
+h2{
+    font-size: 1.5em;
+    margin-bottom: 0;
+    padding-bottom:0;
+    color: #3C0F01;
+    
+}
+
+h3{
+    font-size: 1.25em;
+    margin-bottom: 0;
+    padding-bottom:0;
+    color: #3C0F01;
+    
+}
+
+span{
+    font-size: .85em;
+}
+
+.textbox{
+    margin-top: 2em;
+}
+.textbox>p{
+    margin-bottom: .5em;
+}
+
+button{
+    margin-top: .5em;
+}
+.dictionary>p{
+    margin: 0;
+}
+.dictionary{
+    margin-top: 2em;
+}
+.subsection{
+    margin-top: 2em;
+    margin-left: 2em;
+    border: solid;
+    border-color: #79390D;
+    padding: 0em 4em 4em 4em;
+    background-color:#EFBA61;
+    max-width: 700px;
+}
+.textInput{
+    width: 100%;
+}
+p{
+    color: #3C0F01;
+}
+
+.step{
+    font-weight: bold;
+    margin-top: 2.2em;
+}
+
+/* CSS transition divs */
+
+/*----------- Step 1 Demo ---------------*/
+
+#box1{
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+
+/* nestedDiv display:none until parent div:hover*/
+#box1:hover{
+    background-color: #F6DEB0;
+    transform: rotate(45deg);
+}
+
+
+#box1a{
+    display: inline-block;
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+#box1a:hover{
+    background-color: #F6DEB0;
+    transform: scale(.5,1);
+}
+#box1a::after{
+    content: "This box scales the x axis by .5";
+}
+
+
+#box1b{
+    display: inline-block;
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+#box1b:hover{
+     background-color: #F6DEB0;
+    transform: scale(1,.5);
+}
+#box1b::after{
+    content: "This box scales the y axis by .5";
+}
+
+#box1c{
+    display: inline-block;
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+#box1c:hover{
+    background-color: #F6DEB0;
+    transform: scale(2,2);
+}
+
+#box1c::after{
+    content: "This box scales the y and x axis by 2";
+}
+
+#box1d{
+    display: inline-block;
+    clear: left;
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+#box1d:hover{
+    transform: skew(20deg, 0deg);
+}
+
+#box1d::after{
+    content: "This box skews the x axis 20 degree";
+}
+
+#box1e{
+    display: inline-block;
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+#box1e:hover{
+    transform: skew(0deg,20deg)
+}
+
+#box1e::after{
+    content: "This box skews the y axis 20 degree";
+}
+
+#box1f{
+    display: inline-block;
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+#box1f:hover{
+    transform: skew(-20deg,-20deg)
+}
+
+#box1f::after{
+    content: "This box skews the x and y axis -20 degrees";
+}
+
+#box1g{
+    
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+#box1g:hover{
+    transform: translate(100px,0px);
+}
+
+#box1g::after{
+    content: "This box translates 100px along the x axis";
+}
+
+#box1h{
+   
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+#box1h:hover{
+    transform: translate(0px,100px);
+}
+
+#box1h::after{
+    content: "This box translates 100px along the y axis";
+}
+
+
+#box1i{
+   
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+}
+
+#box1i:hover{
+    transform: translate(500px,-100px);
+}
+#box1i::after{
+    content: "This box translates 500px along the x axis 100px along y";
+}
+
+
+
+
+/*----------- Step 2 Demo ---------------*/
+
+#box2{
+   display: inline-block;
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: navy;
+    color: yellow;
+    transition: transform 1s;
+}
+
+#box2:hover{
+    transform: rotateY(130deg);
+}
+
+#box2::after{
+    content: "Rotation along y axis";
+}
+
+#box2a{
+    display: inline-block;
+     margin-top: 1em;
+     width: 10em;
+     height: 10em; 
+     background-color: navy;
+     color: yellow;
+     transition: transform 1s;
+ }
+ 
+ #box2a:hover{
+     transform: rotateX(130deg);
+ }
+
+ #box2a::after{
+    content: "Rotation along x axis";
+}
+#box2b{
+    display: inline-block;
+     margin-top: 1em;
+     width: 10em;
+     height: 10em; 
+     background-color: navy;
+     color: yellow;
+     transition: transform 1s;
+ }
+ 
+ #box2b:hover{
+     transform: rotateZ(120deg);
+ }
+
+ #box2b::after{
+    content: "Rotation along z axis";
+}
+/*----------- Step 3 Demo ---------------*/
+#box3{
+    color: white;
+    position: relative;
+    height: 200px;
+    width: 200px;
+    margin-bottom: 4em;
+    
+}
+#box3a{
+    
+    padding: 50px;
+    position: absolute;
+    border: 1px solid black;
+    background-color: #A42921;
+    transition-duration: 1000ms;
+    transform-style: preserve-3d; 
+}
+
+#box3a:hover{
+    transform: rotateX(180deg);
+    
+}
+
+#box3a::before{
+    content: "transform-style: preserve-3d";
+}
+
+#box3b{
+    
+    padding: 50px;
+    position: absolute;
+    border: 1px solid black;
+    background-color: navy;
+    transition-duration: 1000ms;
+    transform: rotateX(-60deg);
+   
+   
+}
+#box3b::after{   
+    content: "transform: rotateX(-60deg)";
+}
+
+/*---Box 4----*/
+#box4{
+    color: white;
+    position: relative;
+    height: 200px;
+    width: 200px;
+
+
+   
+    
+}
+#box4a{
+    
+    padding: 40px;
+    position: absolute;
+    border: 1px solid black;
+    background-color:#A42921;
+    transition-duration: 1000ms;   
+    transform-style:flat; 
+}
+
+#box4a:hover{
+    transform: rotateX(180deg);
+    
+}
+
+#box4a::before{
+    content: "transform-style: flat";
+}
+
+#box4b{
+    
+    padding: 40px;
+    position: absolute;
+    border: 1px solid black;
+    background-color: navy;
+    
+    transform: rotateX(-60deg);
+   
+   
+}
+#box4b::after{   
+    content: "transform: rotateX(-60deg)";
+}
+
+
+
+
+
+
