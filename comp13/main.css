@@ -1,0 +1,165 @@
+h1{
+    color: #79390D;
+}
+section{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flexbox;
+}
+section>p{
+    padding-top:.5em;
+    padding-bottom:.5em;
+    margin:0;
+}
+h2{
+    font-size: 1.5em;
+    margin-bottom: 0;
+    padding-bottom:0;
+    color: #3C0F01;
+    
+}
+
+h3{
+    font-size: 1.25em;
+    margin-bottom: 0;
+    padding-bottom:0;
+    color: #3C0F01;
+    
+}
+
+span{
+    font-size: .85em;
+}
+
+.textbox{
+    margin-top: 2em;
+}
+.textbox>p{
+    margin-bottom: .5em;
+}
+
+button{
+    margin-top: .5em;
+}
+.dictionary>p{
+    margin: 0;
+}
+.dictionary{
+    margin-top: 2em;
+}
+.subsection{
+    margin-top: 2em;
+    margin-left: 2em;
+    border: solid;
+    border-color: #79390D;
+    padding: 0em 4em 4em 4em;
+    background-color:#EFBA61;
+    max-width: 700px;
+}
+.textInput{
+    width: 100%;
+}
+p{
+    color: #3C0F01;
+}
+
+.step{
+    font-weight: bold;
+    margin-top: 3em;
+}
+
+
+
+/* CSS transition divs */
+
+/*----------- Step 1 Demo ---------------*/
+
+#box1{
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;    
+    color: white;
+}
+
+
+/* nestedDiv display:none until parent div:hover*/
+/* animation: name duration timing-function delay iteration-count 
+    direction fill-mode play-state; */
+
+#box1:hover{
+    background-color: #F6DEB0;
+    animation-name: rotate45;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    
+}
+
+@keyframes rotate45{
+    100%{transform: rotate(360deg);}
+   }
+
+
+#box1c{
+    display: inline-block;
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;    
+}
+
+#box1c:hover{
+    background-color: #F6DEB0;
+    animation: many 2s linear 2 alternate-reverse forwards;
+}
+
+@keyframes many{
+    10%{transform: scale(2,2)}
+    20%{transform: skew(.5,.5)}
+    30%{transform: translate(100px,-100px)}
+    40%{transform: rotatey(180deg)}
+    50%{transform: rotatex(180deg)}
+    60%{transform: rotatez(180deg)}
+    100%{transform: scale(2,2)}
+
+}
+
+#box1c::after{
+    content: "This box uses the 'many' @keyframe";
+    color: white;
+}
+
+#box1d{
+    display: inline-block;
+    clear: left;
+    margin-top: 1em;
+    width: 10em;
+    height: 10em; 
+    background-color: #A42921;
+    transition: transform 1s;
+    
+}
+
+#box1d:hover{
+    animation: beat 500ms linear infinite forwards;
+}
+
+#box1d::after{
+    content: "This box uses the 'beat' @keyframe" ;
+    color: white;
+}
+
+@keyframes beat{
+    25%{transform: scale(2,2)}
+    50%{background: blue}
+    75%{transform: scale(1,1)}
+    100%{background: #A42921;}
+
+
+}
+
+
+
+
+
+
