@@ -11,7 +11,10 @@
 <body>
     <main>
         <section>
-            <p>1. Changing a background and opacity</p>
+            <h2>1. Changing a background and opacity</h2>
+            <p>These buttons call a JavaScript function from main.js
+                to change the background and opacity of the box.
+            </p>
             <!-- Insert JavaScript method with parameters-->
             <button onclick="changeBackground('box1','#009900')">
             Change Background</button>
@@ -20,11 +23,15 @@
             <button onclick="fadeIn('box1')">
                             Fade In</button>
             <div id="box1">
-                <h1>Content Heading</h1>
-                <p>Paragraph information</p>
+                <h1>JavaScript</h1>
+                <p>1. An object is created with document.getElementById()</p>
+                <p>2. JS adds a object.style.transition to object</p>
+                <p>3. JS adds a object.style.background or style.opacity property</p>
+                
             </div><!--end box div-->
-
-            <p>2. Sliding in and out</p>
+        </section>
+        <section>
+            <h2>2. Sliding in and out</h2>
             <!-- Insert JavaScript method with parameters-->
             <button onclick="slideIn('box2')">
             Slide in object</button>
@@ -33,20 +40,45 @@
             <button onclick="slideOff('box2')">
                     Slide Off</button>
             <div id="box2">
-                <h1>Content Heading</h1>
-                <p>Paragraph information</p>
+                <h1>JavaScript</h1>
+                <p>Same principles used in this box, except that 
+                    object.style.left is manipulated by JS
+                </p>
             </div><!--end box div-->
-
-            <p>3. Animations with KeyFrames</p>
+        </section>
+        <section>
+            <h2>3. Animations with KeyFrames</h2>
             <!-- Insert JavaScript method with parameters-->
             <button onclick="myAnimation()">
-            Ball bounce</button>
-            <div id="ball">
+            Animate Box</button>
+            <div id="boxAnimate">
                 <h1>Animation</h1>
-                <p>Paragraph information</p>
+                <p>1. The CSS has a box animating between green and yellow
+                    when the page loads.
+                </p>
+                <p>2. The "Animate box" button does not create a new variable, but simply uses
+                    document.getElementById("the Id").style.animation="params"
+                    in order to create a new animation sequence for this box. 
+                </p>
+                <p>3. The animation sequences are stored in main.css as @keyframes</p>
             </div><!--end box div-->
-
-        </section>        
+        </section>   
+        <section>
+                <h2>5. Transforms with JavaScript</h2>
+                <p>JavaScript will transform this box using 2D & 3D animations</p>
+                <!-- Insert JavaScript method with parameters-->
+                <button onclick="transformAnimation()">
+                Transform Animations</button>
+                <button onclick="stoptransformAnimation()">
+                        Stop Transform Animations</button>
+                <div id="transformAnimate">
+                    <h2>Animation Sequence</h2>
+                    <p>1. Rotate Y axis</p>
+                    <p>2. Rotate Z axis</p>
+                    <p>3. Scale 1 to 1.25 to 1</p>
+                    <p>4. Rotate X axis</p>
+                </div><!--end box div-->
+            </section>     
     </main>
 
     

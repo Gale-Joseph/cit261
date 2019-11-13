@@ -54,5 +54,13 @@ function slideOff(elementParam){
 }
 
 function myAnimation(){
-    document.getElementById("ball").style.animation="ball-bounce-new 1s infinite";
+    document.getElementById("boxAnimate").style.animation="colorbox-new 1s infinite";
+}
+
+function transformAnimation(){
+    document.getElementById("transformAnimate").style.animation="transformAnimation 3s infinite";
+}
+
+function stoptransformAnimation(){
+    document.getElementById("transformAnimate").style.animation="none";
 }
