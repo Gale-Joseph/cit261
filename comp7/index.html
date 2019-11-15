@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="main.css">
+        <script type="text/javascript" src="main.js"></script>
+        <title>Comp12</title>
+    </head>
+    <body>
+        <header>
+    
+        </header>
+        <main>
+            <section>
+                    
+                <h1 class="myTitle">Competency 8: <br><span>Manipulating CSS Class Properties Using JavaScript.</span></h1>
+    
+                <div class="subsection">
+                    <h2>Changing Class Properties with Javascript</h2>
+                    <p>getElementByClassName returns an array of elements</p>
+                    <p>Click on the buttons below to see a demonstration</p>
+                    <button onclick="changeBackground()">Change background color</button>
+                    <button onclick="changeP()">Change paraphraph</button>
+                    <button onclick="changePadding()">Adjust margins and padding</button>
+                    
+                    <div class="paragraphDiv">
+                        <p>This paragraph is manipulated using getElementByClassName().</p>
+                        <p>The div is put into an array and the style object is changed. </p>
+                        <p class="paragraphDiv">This particular line changes when the button is pushed. Because
+                            it has the same class as the div around the paragraph, it will also have a border.
+                            However, the function can change this by calling this line as the second item
+                            in the array.
+                        </p>
+                        <p class="paragraphDiv">This particular line will be the only one that changes with the 
+                            "Adjust margins and padding button" since only the third item in the array will be 
+                            manipulated.
+                        </p>
+                    </div>
+                    
+                </div>
+                    
+            </section>
+        </main>
+        
+    </body>
+</html>
