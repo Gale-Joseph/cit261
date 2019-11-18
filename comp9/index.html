@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <link rel="stylesheet" href="main.css">
+            <script type="text/javascript" src="main.js"></script>
+            <title>Comp9</title>
+    </head>
+<body onafterprint="printFunction()" >
+    <section>
+        <h1>Comp 9: Standard JavaScript Events<br> Including those for Mobile Devices 
+            ( Ex. onTouchBegin, onLoad, etc.) <br>and Animation and Transition Events.</h1>
+        <div class="subsection">
+            <h2>The following are a sample of standard JavaScript events:</h2>
+            <h2>onafterprint</h2>
+                <p>This event will print message after a print dialogue box is closed. 
+                    Go ahead and hit Control + P and close the box to see what happens.</p>
+            <h2>onreset</h2>
+                <p>When a form is reset, a dialogue box will appear.</p>
+                <form onreset="resetFunction()">
+                    <label>Enter some text:</label>
+                    <input type="text" placeholder="Enter text here">
+                    <input type="reset" value="Reset the text">    
+                </form>
+            <h2>onkeypress</h2>
+                <p>When a key is pressed in an input box a popup will appear</p>
+                <form>
+                        <label>Enter some text:</label>
+                        <input type="text" placeholder="Enter text here" 
+                            onkeypress="keyPressFunction()">
+                        <input type="reset" value="Reset the text">    
+                    </form>
+            <h2>onclick</h2>
+            <div class="onclickBox" >
+                <p onclick="onclickFunction(this)">click this text to see an onlick event</p>
+            </div>
+            <h2>onmouseover</h2>
+            <div class="onclickBox" onmouseover="onMouseOverFunction(this)"
+                onmouseout="onMouseOutFunction(this)">
+                    <p >Move your mouse over this box to activate an event</p>
+                </div>
+            <h2>ontouchstart</h2>
+            <div class="onclickBox" ontouchstart="onTouchFunction(this)">
+                    <p>Go into developer mode, choose mobile, and click this box</p>
+                </div>
+
+            <h2>animationstart</h2>
+            <div id="animationBox" onclick="animationFunction(this)">
+                    <p>Click here to see an animation</p>
+                </div>
+
+            <h2>transitionend</h2>
+            <p>Hover over the div element below, and wait for the transition effect to end.</p>
+            <div id="transitionBox"><p>
+                text in box
+                </p></div>
+
+        </div>
+        <script>
+            document.getElementById("transitionBox").addEventListener("transitionend", tFunction);
+
+            function tFunction() {
+                this.innerHTML = "This message appears after the transition has completed. Be sure JavaScript " +
+                    "is read after transition completes. Notice the text and background changes. This is all " +
+                    "done in the function which is called with the addEventListener transitionend";
+                this.style.background = "blue";
+                this.style.color="yellow";
+}
+        </script>
+    </section>
+    
+</body>
+</html>
