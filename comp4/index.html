@@ -9,9 +9,47 @@
         <title>Comp4</title>
     </head>
 <body>
+    <h1>Competency 4: Using XMLHTTPRequest to Consume a JSON Web Service</h1>
     <div class="subsection">
+        <div class="subsubsection">
+        <p>Comp4: This button shows the use of XMLHTTPRequest to retrieve data from the stock market</p>
+        <p>Comp5: This data is stored as a JSON string in local storage and retrieved for buttons below</p>
+        <button onclick="getStockData()">Get Stock Data</button>
+        </div>
+       
+        <div class="subsubsection">
+            <p>Comp 6: These 6 buttons show DOM manipulation with createElement, appendChild, etc..</p>
+        <div id="dataDisplay"></div>
+        <button onclick="seeTickerFunction()">See Ticker Symbol</button>      
+        <button onclick="addPriceFunction()">Insert Price Before Ticker</button>
+        <ul id="stockInfoList">
+            <title>Stock Info</title>
+            <!-- <li id="liDate" onload="dateFunction()"></li> -->
+            
+                  
+        </ul>
+         </div>
 
+        <button onclick="removeTickerFunction()">Remove Info</button>
+        <button onclick="replaceFunction()">Replace Price</button>
         
+        <div class="subsubsection">
+            <p>Comp 5: These buttons show that basic data and arrays 
+                can be saved and retreived from local storage</p>
+            <button onclick="storeData()">Store Data</button>
+            <div id="savedInfo"></div>
+            
+            <button onclick="retrieveData()">Retreive Data</button>
+            <div id="retrieveName"></div>
+            <div id="retrievePets"></div>
+            <div id="retrieveAssoc"></div>
+        </div>  
+        </div>
+       
+        
+        
+
+
     </div>
     
 </body>
