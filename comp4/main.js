@@ -56,7 +56,7 @@ xhr.onreadystatechange = function getStockData (){
 };
 
 //Personal api key: TXLZQ0VXP5QUYSXN
-url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=TXLZQ0VXP5QUYSXN";
+url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=TXLZQ0VXP5QUYSXN";
 xhr.open('get',url,true);
 xhr.send();
 }
