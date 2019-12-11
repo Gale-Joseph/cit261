@@ -129,35 +129,84 @@ function getStockData(){
 
       }
 
- 
+      //create watchlist object for storing watchlist objects
+      var watchlistArray = []
+
+      //initialize local storage if it exists;  open it onload in body
+      function init(){ 
+        deleteTable("watchlistTable");  
+          if(localStorage.watchlist){            
+                watchlistArray = JSON.parse(localStorage.watchlist);
+                createTable("watchlist","watchlistTable","watchlistRow");
+                console.log("Watchlist Table created");          
+                for(var i=0; i<watchlistArray.length;i++){
+                    var index = i+1;
+                    var ticker = watchlistArray[i].ticker;
+                    var tradingDay = watchlistArray[i].tradingDay
+                    var currentPrice = watchlistArray[i].currentPrice;
+                    var previousClose = watchlistArray[i].previousClose;
+
+                    //set table variables
+                    var tbl = document.getElementById("watchlistTable");
+                    var row = tbl.insertRow();
+                    var cell1 = row.insertCell();
+                    var cell2 = row.insertCell();
+                    var cell3 = row.insertCell();
+                    var cell4 = row.insertCell();
+                    var cell5 = row.insertCell();
+                    cell1.innerHTML = ticker;
+                    cell2.innerHTML = tradingDay;
+                    cell3.innerHTML = currentPrice;
+                    cell4.innerHTML = previousClose;
+                    cell5.innerHTML = "<input type='button' onclick='removeFromWatchlist("+index+")' \
+                    value='Remove from Watchlist'></input>";                  
+                    
+                }
+          }
+      }
+      
       function addToWatchlist(){
         //verify if watchlist table exists
-        if(document.getElementById("watchlistTable") == null){
-            createTable("watchlist","watchlistTable","watchlistRow");
-            console.log("Watchlist Table created");          
-        } 
+        // if(document.getElementById("watchlistTable") == null){
+        //     createTable("watchlist","watchlistTable","watchlistRow");
+        //     console.log("Watchlist Table created");          
+        // } 
 
         //set watchlist variables
         var stockJson = JSON.parse(localStorage.getItem('searchResult'));
         var ticker = stockJson["Global Quote"]["01. symbol"];
-        var currentPrice = stockJson["Global Quote"]["05. price"];
-        var previousClose = stockJson["Global Quote"]["08. previous close"];
         var tradingDay = stockJson["Global Quote"]["07. latest trading day"];
+        var currentPrice = stockJson["Global Quote"]["05. price"];
+        var previousClose = stockJson["Global Quote"]["08. previous close"];        
+
+        //create object and store new object to array
+        var watchlistObj = {ticker:ticker,tradingDay:tradingDay,currentPrice:currentPrice,previousClose:previousClose};
+        watchlistArray.push(watchlistObj);
+        console.log(watchlistArray);
+        localStorage.watchlist = JSON.stringify(watchlistArray);
+
+        init();
 
         //set table variables
+        // var tbl = document.getElementById("watchlistTable");
+        // var row = tbl.insertRow();
+        // var cell1 = row.insertCell();
+        // var cell2 = row.insertCell();
+        // var cell3 = row.insertCell();
+        // var cell4 = row.insertCell();
+        // var cell5 = row.insertCell();
+        // cell1.innerHTML = ticker;
+        // cell2.innerHTML = tradingDay;
+        // cell3.innerHTML = currentPrice;
+        // cell4.innerHTML = previousClose;
+        // cell5.innerHTML = "<input type='button' id = watchlistArray[0] onclick='removeFromWatchlist()' \
+        //    value='Remove from Watchlist'></input>";
+
+    }
+
+    function removeFromWatchlist(index){
         var tbl = document.getElementById("watchlistTable");
-        var row = tbl.insertRow();
-        var cell1 = row.insertCell();
-        var cell2 = row.insertCell();
-        var cell3 = row.insertCell();
-        var cell4 = row.insertCell();
-        var cell5 = row.insertCell();
-        cell1.innerHTML = ticker;
-        cell2.innerHTML = tradingDay;
-        cell3.innerHTML = currentPrice;
-        cell4.innerHTML = previousClose;
-        cell5.innerHTML = "<input type='button' onclick='removeFromWatchlist()' \
-           value='Remove from Watchlist'></input>";
+        tbl.deleteRow(index);
 
     }
 
