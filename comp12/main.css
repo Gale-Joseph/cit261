@@ -273,11 +273,11 @@ p{
      height: 10em; 
      background-color: navy;
      color: yellow;
-     transition: transform 1s;
+     transition: transform 4s;
  }
  
  #box2a:hover{
-     transform: rotateX(130deg);
+     transform: rotateX(360deg);
  }
 
  #box2a::after{

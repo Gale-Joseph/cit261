@@ -3,7 +3,7 @@
     width: 90%;
     padding: 1em;
     margin: 0 auto;
-    background-color: pink;
+    background-color: skyblue;
     text-align: center;
  }
  
@@ -13,27 +13,54 @@
 }
 
 #volumeDiv{
-   margin: 0 auto;
+   margin: auto;
+   opacity: 1;
+   margin-top: .5em;
+}
+
+#volumeButtonDiv{
+   margin: auto;
+   margin-top: .5em;
 }
 
  #inputDiv{
    margin: 0 auto;
-    margin-top: 2em;
+   margin-top: 2em;
  }
 
- #watchlistDiv, #watchlistTb{
+ #inputDiv p{
+    margin-bottom: .5em;
+ }
+
+ #watchlistDiv{
+    margin-top: 2em;
+
+ }
+#watchlistTb{
    margin: 0 auto;
-    margin-top: 2em;
+    margin-top: .5em;
  }
 
+ #watchlistUpdate{
+    margin-top: 1em;
+ }
+
+ #watchlistUpdate p{
+    margin-top: .25em;
+ }
+
+ #dataDisplay {
+    margin-top: .5em;
+ }
 
 
  
  /* ***** CSS FOR BASIC ELEMENTS ***** */
 
-table {
+ table {
    border: 1px solid black; 
    padding: 0;
+   margin:0;
 }
 
 tr:hover {background-color:#f5f5f5;}
@@ -116,9 +143,17 @@ td{
    80%{background-color: #d9321f;}
    80%{background-color: #e74f4c;}
 }
+ /* ***** Animation: UpdatePriceDiv ***** */
+
+/* @keyframes updateAnimation{
+   35%{transform: scale(1.5,1.5)}
+   75%{transform: rotateZ(180deg)}
+} */
+
+
 
  /* ***** @media queries ***** */
- /* reference: https://css-tricks.com/responsive-data-tables/ */
+ /* reference idea: https://css-tricks.com/responsive-data-tables/ */
 
 @media 
 only screen and (max-width: 760px)  {

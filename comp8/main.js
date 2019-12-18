@@ -38,7 +38,7 @@ function fadeIn(elementParam){
 function slideIn(elementParam){
     var myElement = document.getElementById(elementParam);
     myElement.style.transition ="left 1.0s linear 0s";
-    myElement.style.left="0px";
+    myElement.style.left="10%";
 }
 
 function slideMore(elementParam){

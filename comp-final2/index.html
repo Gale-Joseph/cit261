@@ -16,11 +16,18 @@
 
         <div id = "wrapper">
             <div id="pageTitle"><h1>Watchlist Tracker</h1></div>
+            <input type="button" id = "flipPrice" 
+            onclick="animateUpdate()" value="Test">
 
-            <div id="volumeTitle"><p>Market Volume</p></div>
+            <div id="volumeTitle"><p>Today's Volume as % of Daily Volume Average</p></div>
             
             <div id = "volumeDiv" >                              
                 <div id="volumeBar" onload="seeVolume(this)"></div>
+            </div>
+            <div id="volumeButtonDiv">
+                <input type="button" id = "toggleButton" 
+                    onclick="toggleVolume()" value="Remove Volume">
+                    </input>
             </div>
         
             <div id="inputDiv">

@@ -302,6 +302,8 @@ function removeFromWatchlist(ticker){
 
 function refreshQuotes(){
     
+   
+
     //pull each stock from stockIndex
    
     var stockIndexObject = JSON.parse(localStorage.stockIndex);
@@ -313,6 +315,9 @@ function refreshQuotes(){
     }
     
     insertRefreshTime();
+
+     //animate div
+     refreshQuotes();
     
     displayWatchlist();
    
@@ -329,7 +334,7 @@ function insertRefreshTime(){
     if(min<10){
         min = "0" + min;
     }
-    var refreshTime = day + " " + month + " " + d.getDay() + " " + hr + ":" + min
+    var refreshTime = day + " " + month + " " + d.getDate() + " " + hr + ":" + min
     document.getElementById("lastUpdatedDiv").innerHTML=refreshTime;
 
 }
@@ -337,7 +342,7 @@ function insertRefreshTime(){
 /* *************************** Animation Functions *************************** */
 
 
-/* ***Bar Graph - Market Activity *** */
+/* ***Bar Graph - Market Volum *** */
 function seeVolume(volumeBar){
     //average spy volume is 60M
     const spyAverageVolume = 60000000;
@@ -355,8 +360,45 @@ function seeVolume(volumeBar){
         spyVolumePercent=100;
     }
     console.log(spyVolumePercent);
-    //var volume = 100;
-    //var volumeObject = document.getElementById("volumeBar");
     volumeBar.style.width = spyVolumePercent +  "%";
-
 }
+
+/* ***Bar Graph - Market Volume - Make Bar disappear/reappear *** */
+function toggleVolume(){
+    var barchart = document.getElementById("volumeDiv");    
+    barchart.style.transition ="opacity 1.0s linear 0s";
+
+    //if opacity property doesn't exist, assign it 1
+    if(!barchart.style.opacity){
+        barchart.style.opacity = 1;
+    }
+   
+    //if opacity 1, then make opacity 0 and change button value
+    if(barchart.style.opacity==1){
+        console.log("first if statement reached");
+        barchart.style.opacity=0;
+        var button = document.getElementById("toggleButton");
+        button.value = "See Volume";
+        console.log("Opacity value:");
+        console.log(barchart.style.opacity);
+    }else{
+        console.log("else statement reached");
+        barchart.style.opacity=1;
+        var button = document.getElementById("toggleButton");
+        button.value = "Remove Volume";
+        console.log("Opacity value:");
+        console.log(barchart.style.opacity);
+
+    }
+    
+}
+
+/* ***Makes update button, time and message do a series of animations *** */
+
+//note: this function adds an animation to the div watchlistUpdate
+// function animateUpdate(){
+//     document.getElementById("watchlistUpdate").style.animation=
+//     "updateAnimation 1s 1";
+//     document.getElementById("watchlistUpdate").style.animation=
+//     "none";
+// }
