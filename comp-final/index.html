@@ -12,9 +12,17 @@
 
         
         <input type="text" id = "userInput" ></input>
+        <p>Type symbols like 'AAPL', 'CVX', or 'SPY'</p>
         <input type="button" onclick="getStockData()" value="Get Stock Info"></input> 
+
+        <input type="button" onclick="showStorage()" value="Show Stored Data"></input>
+        <input type="button" onclick="refreshData()" value="Refresh Data"></input>  
+        <input type="button" onclick="getStockData2('aapl')" value="Test AJAX"></input>  
+        <input type="button" onclick="getSimple('cvx')" value="Test getSimple('cvx')"></input>  
+        <input type="button" onclick="loopSimple()" value="Simple Loop"></input>  
         
-    
+    <div id="storedData"></div>      
+    <div id="messageDiv"></div>
     <div id="dataDisplay"></div>
 
     <div id="watchlist">

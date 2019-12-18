@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="main.css">
+        <script type="text/javascript" src="main.js"></script>
+        <title>Final</title>
+    </head>
+<body onload=
+    "displayWatchlist();
+     setTimeout(refreshQuotes,60000);
+     seeVolume(volumeBar);
+    ">
+
+        <div id = "wrapper">
+            <div id="pageTitle"><h1>Watchlist Tracker</h1></div>
+
+            <div id="volumeTitle"><p>Market Volume</p></div>
+            
+            <div id = "volumeDiv" >                              
+                <div id="volumeBar" onload="seeVolume(this)"></div>
+            </div>
+        
+            <div id="inputDiv">
+                <p>Search by symbol (aapl, cvx, etc):</p>
+                <input type="text" id = "userInput" ></input>
+                <input type="button" onclick="getStockData
+                    (document.getElementById('userInput').value.trim().replace(/[\n\r]/g, ''))" 
+                    value="Get Stock Info"></input> 
+            </div><!--Close inputDiv-->
+       
+            <div id="dataDisplay"></div>
+
+            <div id="watchlistDiv"> 
+                <h2>Current Watchlist</h2>
+            </div>
+
+            <div id="watchlistUpdate">
+                <input type="button" onclick="refreshQuotes()" value="refresh"></input> 
+                <p>Last updated:</p>
+                <div id="lastUpdatedDiv"></div>
+            </div>
+
+
+
+        </div><!--Close Wrapper-->
+
+    
+
+</body>
+</html>

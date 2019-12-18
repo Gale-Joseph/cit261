@@ -1,0 +1,167 @@
+  /* ***** CSS FOR DIVS ***** */
+ #wrapper{
+    width: 90%;
+    padding: 1em;
+    margin: 0 auto;
+    background-color: pink;
+    text-align: center;
+ }
+ 
+#volumeTitle{
+    margin-top: 2em; 
+    
+}
+
+#volumeDiv{
+   margin: 0 auto;
+}
+
+ #inputDiv{
+   margin: 0 auto;
+    margin-top: 2em;
+ }
+
+ #watchlistDiv, #watchlistTb{
+   margin: 0 auto;
+    margin-top: 2em;
+ }
+
+
+
+ 
+ /* ***** CSS FOR BASIC ELEMENTS ***** */
+
+table {
+   border: 1px solid black; 
+   padding: 0;
+}
+
+tr:hover {background-color:#f5f5f5;}
+
+#outputTable tr{
+    border: 1px solid blue; 
+    padding: .25em;
+ }
+
+td{
+    border: 1px solid black; 
+    padding: .25em;
+ }
+
+ h1 {
+    font-size: 2em;
+    margin: 0;
+ }
+
+ p,h2{
+   font-size: 1.25em;
+   margin: 0em 0em 0em 0em;
+}
+
+  /* ***** Animations: Volume Bar ***** */
+  #volumeDiv {
+   width: 50%;
+   background-color: navy;
+   border-radius: 25px;
+   text-align: center;
+  }
+
+  #volumeBar {
+   width: 5%;
+   height: 15px;
+   border-top-left-radius: 24px;
+   border-bottom-left-radius: 20px;
+   background-color: red;
+   transition-property: width;
+   transition-duration: 2s;
+   transition-timing-function: ease-in;
+  }
+
+  #volumeDiv h2{
+     color: white;
+     left: 25%;
+     position: absolute;
+  }
+
+
+ /* ***** Animations: Ticker Price ***** */
+
+ .goodNews{
+    background-color: #ADFF2F;
+    animation: greenAlert 4s infinite; 
+    animation-direction: alternate;
+ }
+
+ @keyframes greenAlert{
+    0%{background-color: #ADFF2F;}
+    20%{background-color: #7FFF00;}
+    40%{background-color: #7CFC00;}
+    60%{background-color: #00FF00;}
+    80%{background-color: #32CD32;}
+    80%{background-color: #00FF00;}
+ }
+
+ .badNews{
+   background-color: #c34242;
+   color: white;
+   animation: redAlert 4s infinite; 
+   animation-direction: alternate;
+}
+
+@keyframes redAlert{
+   0%{background-color: #e96868;}
+   20%{background-color: #e74f4c;}
+   40%{background-color: #d9321f;}
+   60%{background-color: #c34242;}
+   80%{background-color: #d9321f;}
+   80%{background-color: #e74f4c;}
+}
+
+ /* ***** @media queries ***** */
+ /* reference: https://css-tricks.com/responsive-data-tables/ */
+
+@media 
+only screen and (max-width: 760px)  {
+
+	/* Break table into block elements */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers*/
+	thead td { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid black; }
+	
+	td { 
+		/* Make td behave like a row*/
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Symbol"; }
+	td:nth-of-type(2):before { content: "Date"; }
+	td:nth-of-type(3):before { content: "Previous Close"; }
+	td:nth-of-type(4):before { content: "Current Price"; }
+	td:nth-of-type(5):before { content: "Action"; }
+}

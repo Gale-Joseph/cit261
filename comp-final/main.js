@@ -1,5 +1,9 @@
-//get stock data ====================
+/* *************************** API CALL FUNCTIONS *************************** */
 
+;
+
+
+/* ***** uses API based off of user input on HTML form ***** */
 function getStockData(){
 
     //1. Create an XMLHttpRequest object (request object)
@@ -39,7 +43,242 @@ function getStockData(){
     xhr.send();
     }
 
-    /* ***** Functions ***** */
+
+/* ***** uses API based internally to update stock data ***** */
+function getStockData2(symbol){
+    //this will return an array of info about ONE stock
+    var responseText;
+
+    //do not write the array to local storage in this function
+    const xhr = new XMLHttpRequest();
+    console.log("getStockData2: xhr object created")
+    xhr.onreadystatechange = function getStockData (){
+        if (xhr.readyState==4){
+            if (xhr.status==200){
+                console.log("getStockData2: connected to api")
+                responseText = xhr.responseText;  
+                
+                console.log("getStockData2: Showing xhr.responsetext:");
+                console.log(xhr.responseText); 
+                
+               
+                
+    
+            if(xhr.status==404){
+                console.log("getStockData2: File or resource not found");
+            }
+
+            console.log("getStockData2: showing new response text variable: ");
+            console.log(responseText);
+
+            console.log("getStockData2: returning response text as parsed json");
+            return JSON.parse(responseText);
+
+            }
+        }
+    };
+    console.log("getStockData2: url is getting set here with symbol:")
+    url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
+            +symbol+"&apikey=TXLZQ0VXP5QUYSXN";
+    console.log("getStockData2: get request is being created: ")
+    xhr.open('get',url,true);
+    console.log("getStockData2: get request is being sent: ")
+    xhr.send();
+
+}
+/* ********* simplified xmlhttprequest ********** */
+
+stockArray = []
+permanentStockArray = []
+var xhr = new XMLHttpRequest();
+var responseText;
+
+
+function getSimple(symbol){
+    console.log("Now processing");
+    console.log(symbol);
+    url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+symbol+"&apikey=TXLZQ0VXP5QUYSXN";
+    xhr.open('get',url,true);
+    xhr.onreadystatechange = response;
+    xhr.send();
+
+}
+
+// localStorage.setItem('indexArray','{"ticker:dummy"}');
+function response(){
+    if(xhr.readyState==4){
+        if(xhr.status==200){
+
+            console.log("Response text created")
+            responseText = xhr.responseText; 
+            
+            //get ticker symbol from stock
+            
+            responseTextObject = JSON.parse(responseText);
+            console.log("ResponseTextObject created");
+            ticker = responseTextObject["Global Quote"]['01. symbol'];
+            console.log("Ticker set");
+            
+            //save ticker symbol to an array index in storage if indexArray.length < 2; (see add to watchlist)
+            //we will cycle through this array later to modify the storage value of the key matching the stock
+            //having a storage array ensures that only 2 stocks are added to watch list
+            //our goal is to put this function in a loop 
+            
+            indexArray=[];
+            if(localStorage.indexArray){
+                console.log("add to array");
+            }else{
+                console.log("creating an indexArray and object");
+                var indexArrayObj = {ticker:ticker};
+                indexArray.push(indexArrayObj);
+                console.log(indexArray);
+                localStorage.indexArray = JSON.stringify(indexArray);
+                localStorage.setItem(ticker,responseText);
+            }
+            //next quest: see if you can replace CVX local storage
+            //get a list of tickers in local storage (iterate through indexArray)
+            
+            //if ticker shows up in indexArray, just rewrite it using method above
+            //then see if this behaves in a loop with indexArray.length iterations
+
+            //write an updateMethod with button to see if it updates
+
+           /*Iterating through indexArray*/
+           var iterateObject;
+           iterateObject = JSON.parse(localStorage.getItem('indexArray'));
+           console.log("Iterate this");
+           console.log(iterateObject.length);
+           //iterateObject.forEach(each => console.log(each['ticker']));
+            // iterateObject.forEach(myFunction);
+            // function myFunction(index,item){
+            //     console.log(item);
+            //     console.log(index);
+            // }
+            for (var each of iterateObject){
+                console.log(each['ticker']);
+            }
+
+                       
+                //save that ticker symbol as the name of the storage for that stock
+
+        } else {
+            alert(xmlHttp.statusText);
+        }
+    }
+}
+
+/* ************attempt to make several calls from a loop **************/
+//attempt 2: 
+function loopSimple(){
+    for(var i=0;i<2;i++){
+        getSimple("cvx");
+        
+    }
+    ///parsedArray = JSON.parse(permanentStockArray);
+    //console.log(parsedArray);
+    console.log(permanentStockArray);
+    //console.log(stockArray);
+}
+
+
+
+//attemp 1:
+// //i want to see if can run getSimple(symbol) in a loop to replace storage with 2 new symbols
+// function loopSimple(){
+//     //declare empty array
+//     //start loop for each item in storage:
+//         //get a new symbol
+//         //run the symbol through getSimple()
+//     //see if the full array got stored to local storage
+//     stockArray = []
+//     permanentStockArray = []
+//     var xhr = new XMLHttpRequest();
+//     var responseText;
+
+
+//     var storageObject = JSON.parse(localStorage.getItem('watchlist'));
+//     var symbol;
+//     for (var item in storageObject){
+//         console.log("Loop cycle: " + item);
+//         console.log("Loop ticker: ");
+//         console.log(storageObject[item]['ticker']);
+//         symbol = storageObject[item]['ticker'];
+//         console.log("The symbol going to getSimple() is:");
+//         console.log(symbol);
+//         getSimple(symbol);
+//     }
+
+//     console.log("Loop simple has ended with: ");
+//     console.log(permanentStockArray);
+
+
+    
+
+
+/* *************************** FUNCTIONS *************************** */
+
+    function showStorage(){
+        //document.getElementById("storedData").innerHTML="Stored data";
+        console.log("Function working properly");     
+
+        var storageArray = JSON.parse(localStorage.getItem('watchlist'));
+        var arraylength = storageArray.length;
+        console.log("Attempting to print array length: ");
+        console.log(storageArray);
+        console.log(storageArray[0]);
+        console.log("Test of array notation: " + storageArray[0]['ticker']);
+        for (var item in storageArray){
+            console.log("Item:" + item);
+            console.log(storageArray[item]['ticker'])
+            if(storageArray[item]['ticker']=='AAPL'){
+                console.log("Deleting this from memory")
+                storageArray.splice(item,1);
+                console.log("item deleted from array");
+            }
+        }
+        console.log("Rewriting local storage");
+        localStorage.watchlist = JSON.stringify(storageArray);
+        //localStorage.setItem("watchlist",storageArray);
+
+    }
+
+    function deleteItem(){
+        //work on later
+    }
+
+    function refreshData(){
+        //get one symbol at time from watchlist
+        //use that symbol to call updated data
+        //stick that updated data in an array
+        //cycle through entire watchlist
+        //store the updated info to watchlist
+        console.log("refreshData: refreshData() working properly"); 
+        var storageObject = JSON.parse(localStorage.getItem('watchlist'));
+        var symbol;
+        var storageArray = [];
+;
+        for (var item in storageObject){
+            console.log("refreshData: cycling through item" + item);
+            //get a symbol from watchlist
+            symbol = storageObject[item]['ticker'];
+            console.log("refreshData: The symbol selected is: " + symbol);    
+            
+            //use that symbol to call updated data
+            console.log("refreshData: Api called and stored in an array")
+            tempStorage = getStockData2(symbol);
+            // storageArray.push(getStockData(symbol));
+            console.log("refreshData: Temp storage is: ")
+            console.log(typeof(tempStorage));
+            
+           
+        }
+        console.log("refreshData: Rewriting local storage");
+        //localStorage.watchlist = JSON.stringify(storageArray);
+        //localStorage.setItem("watchlist",storageArray);
+
+    }
+
+
 
     //delete current results table if it exists so that only one table shows after stock search
     function deleteTable(tableId){
@@ -154,11 +393,12 @@ function getStockData(){
                     var cell3 = row.insertCell();
                     var cell4 = row.insertCell();
                     var cell5 = row.insertCell();
+                    row.setAttribute("id",ticker);
                     cell1.innerHTML = ticker;
                     cell2.innerHTML = tradingDay;
                     cell3.innerHTML = currentPrice;
                     cell4.innerHTML = previousClose;
-                    cell5.innerHTML = "<input type='button' onclick='removeFromWatchlist("+index+")' \
+                    cell5.innerHTML = "<input type='button' onclick='removeFromWatchlist("+ticker+")' \
                     value='Remove from Watchlist'></input>";                  
                     
                 }
@@ -172,6 +412,8 @@ function getStockData(){
         //     console.log("Watchlist Table created");          
         // } 
 
+        var storageArray = JSON.parse(localStorage.getItem('watchlist'));
+        if(storageArray==null || storageArray.length<2){
         //set watchlist variables
         var stockJson = JSON.parse(localStorage.getItem('searchResult'));
         var ticker = stockJson["Global Quote"]["01. symbol"];
@@ -183,7 +425,13 @@ function getStockData(){
         var watchlistObj = {ticker:ticker,tradingDay:tradingDay,currentPrice:currentPrice,previousClose:previousClose};
         watchlistArray.push(watchlistObj);
         console.log(watchlistArray);
+        //completely replace watchlist key/value with new array
         localStorage.watchlist = JSON.stringify(watchlistArray);
+        }else{
+            console.log("Two items in watchlist")
+            document.getElementById("messageDiv").innerHTML = "You need to subscribe "/
+                "to our service to add more items to the watchlist.";
+        }
 
         init();
 
@@ -205,6 +453,7 @@ function getStockData(){
     }
 
     function removeFromWatchlist(index){
+        //get rid of elementbyidindex which is currently ticker
         var tbl = document.getElementById("watchlistTable");
         tbl.deleteRow(index);
 
