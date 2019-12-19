@@ -1,29 +1,27 @@
 /* *************************** API CALL FUNCTIONS *************************** */
 
-;
+/* fetch stock for search results - store in "searchResults"
+    Do this so user has option to add to watchlist */
 
-
-/* ***** uses API based off of user input on HTML form ***** */
-function getStockData(){
+function getStockData(symbol){
 
     //1. Create an XMLHttpRequest object (request object)
     const xhr = new XMLHttpRequest();
-    
-    //2. Of the 5 stages of ready state, check for ready state '4' or done
-    /*3. Define an event listener or handler: onreadystatechange
-        Explanation: if the state changes, call the function below*/
-    xhr.onreadystatechange = function getStockData (){
+    //2.Define event listener
+    xhr.onreadystatechange = function response(){
         if (xhr.readyState==4){
             if (xhr.status==200){
                 //store response text to local storage to generate all tables
+                insertRefreshTime();
                 var responseText = xhr.responseText;
                 localStorage.setItem("searchResult",responseText);
+                console.log(symbol + "set in search result");
     
                 //print response text to console for troubleshooting
                 console.log("Showing response text:");
                 console.log(xhr.responseText); 
 
-                //display results
+                //display results for user
                 displayResults();
     
             if(xhr.status==404){
@@ -32,449 +30,404 @@ function getStockData(){
             }
         }
     };
-
-    //trim whitespace and carriage returns from user input
-    var symbol = document.getElementById("userInput").value.trim().replace(/[\n\r]/g, '');
-
-    //add trimmed output variable 'symbol' in url and send request
+    //3.trim whitespace and carriage returns from user input
+    //var symbol = document.getElementById("userInput").value.trim().replace(/[\n\r]/g, '');
+    //4.add trimmed output variable 'symbol' in url and send request
     url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
-            +symbol+"&apikey=TXLZQ0VXP5QUYSXN";
+            +symbol+"&apikey=QTC0C7W8VC9B36VW";
+    //5.prepare request
     xhr.open('get',url,true);
+    //6.send request
     xhr.send();
-    }
+    //alternate api key: QTC0C7W8VC9B36VW
+    //original api key:TXLZQ0VXP5QUYSXN
+}
 
+/* fetch stock for updates - store ticker as key
+    Do this so function can be up in a loop for refreshing price*/
 
-/* ***** uses API based internally to update stock data ***** */
-function getStockData2(symbol){
-    //this will return an array of info about ONE stock
-    var responseText;
+    function updateStockData(symbol){
 
-    //do not write the array to local storage in this function
-    const xhr = new XMLHttpRequest();
-    console.log("getStockData2: xhr object created")
-    xhr.onreadystatechange = function getStockData (){
-        if (xhr.readyState==4){
-            if (xhr.status==200){
-                console.log("getStockData2: connected to api")
-                responseText = xhr.responseText;  
-                
-                console.log("getStockData2: Showing xhr.responsetext:");
-                console.log(xhr.responseText); 
-                
-               
-                
+        //1. Create an XMLHttpRequest object (request object)
+        const xhr = new XMLHttpRequest();
+        //2.Define event listener
+        xhr.onreadystatechange = function response2(){
+            if (xhr.readyState==4){
+                if (xhr.status==200){
+                    
+                    //store response text to local storage to generate all tables
+                    var responseText = xhr.responseText;
+                    localStorage.setItem(symbol,responseText);
+
+                   
+                    console.log(symbol + "set in search result");
+                    console.log("updated at : " + new Date());
+        
+                    //print response text to console for troubleshooting
+                    console.log("Showing response text:");
+                    console.log(xhr.responseText); 
     
-            if(xhr.status==404){
-                console.log("getStockData2: File or resource not found");
+                            
+                if(xhr.status==404){
+                    console.log("File or resource not found");
+                }
+                }
             }
+        };
+        //3.trim whitespace and carriage returns from user input
+        //var symbol = document.getElementById("userInput").value.trim().replace(/[\n\r]/g, '');
+        //4.add trimmed output variable 'symbol' in url and send request
+        url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
+                +symbol+"&apikey=TXLZQ0VXP5QUYSXN";
+        //5.prepare request
+        xhr.open('get',url,true);
+        //6.send request
+        xhr.send();
+    }
 
-            console.log("getStockData2: showing new response text variable: ");
-            console.log(responseText);
 
-            console.log("getStockData2: returning response text as parsed json");
-            return JSON.parse(responseText);
+/* *************************** DISPLAY & LOCAL STORAGE FUNCTIONS *************************** */
 
-            }
-        }
-    };
-    console.log("getStockData2: url is getting set here with symbol:")
-    url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
-            +symbol+"&apikey=TXLZQ0VXP5QUYSXN";
-    console.log("getStockData2: get request is being created: ")
-    xhr.open('get',url,true);
-    console.log("getStockData2: get request is being sent: ")
-    xhr.send();
+// MAIN DISPLAY - initial stock submission
+function displayResults(){
+    var stockJson = JSON.parse(localStorage.getItem('searchResult'));
+    var firstKey = Object.keys(stockJson)[0];
+    var ticker = stockJson["Global Quote"]["01. symbol"];
+    var currentPrice = stockJson["Global Quote"]["05. price"];
+    var previousClose = stockJson["Global Quote"]["08. previous close"];
+    var tradingDay = stockJson["Global Quote"]["07. latest trading day"];
+
+    if(firstKey=="Error Message"){
+        document.getElementById("dataDisplay").innerHTML="Invalid entry";
+
+    }else{    
+
+    //delete any output table if it exists
+    deleteTable("outputTable");
+     
+    //create the display table for the new stock entered
+    createTable("dataDisplay","outputTable","outputRow");
+
+    //append table with data from api call      
+    var tbl = document.getElementById("outputTable");
+     var row = tbl.insertRow();
+     var cell1 = row.insertCell();
+     var cell2 = row.insertCell();
+     var cell3 = row.insertCell();
+     var cell4 = row.insertCell();
+     var cell5 = row.insertCell();
+     cell1.innerHTML = ticker;
+     cell2.innerHTML = tradingDay;
+     cell3.innerHTML = previousClose;
+     cell4.innerHTML = currentPrice;   
+     //set classes to animate cells based on price relative to previous close 
+     if(currentPrice>previousClose){
+        cell4.setAttribute("class","goodNews");
+    }else{
+        cell4.setAttribute("class","badNews");
+    }  
+     cell5.innerHTML = "<input type='button' onclick='addToWatchlist()' \
+        value='Add to Watchlist'></input>";
+        
+    };            
+
+  }
+
+//MAIN DISPLAY HELPER FUNCTIONS: 
+//1. delete table
+function deleteTable(tableId){
+if(document.getElementById(tableId) != null){
+    document.getElementById(tableId).remove();
+    console.log("Table deleted");
+}
+}
+
+//2. create table
+function createTable(elementId,tableId,rowId){
+
+    var t = document.createElement('table');
+    t.setAttribute("id", tableId);
+    document.getElementById(elementId).appendChild(t);
+    
+    var r = document.createElement('thead');
+    r.setAttribute("id", rowId);
+    document.getElementById(tableId).appendChild(r);
+    
+    var c = document.createElement('td');
+    var cinput = document.createTextNode("Symbol");
+    c.appendChild(cinput);
+    document.getElementById(rowId).appendChild(c);
+
+    var c2 = document.createElement('td');
+    var c2input = document.createTextNode("Date");
+    c2.appendChild(c2input);
+    document.getElementById(rowId).appendChild(c2);
+
+    var c3 = document.createElement('td');
+    var c3input = document.createTextNode("Previous Close");
+    c3.appendChild(c3input);
+    document.getElementById(rowId).appendChild(c3);
+
+    var c4 = document.createElement('td');
+    var c4input = document.createTextNode("Current Price");
+    c4.appendChild(c4input);
+    document.getElementById(rowId).appendChild(c4);
+
+    var c5 = document.createElement('td');
+    var c5input = document.createTextNode("Action");
+    c5.appendChild(c5input);
+    document.getElementById(rowId).appendChild(c5);
+
+    console.log("Table created");
+
+    }
+
+/* ****** WATCHLIST - MAIN - ***** */
+function addToWatchlist(){
+    var ticker = searchResultTicker();
+    addToStockIndex(ticker);
+    addStockToStorage(ticker);
+    displayWatchlist();
 
 }
-/* ********* simplified xmlhttprequest ********** */
 
-stockArray = []
-permanentStockArray = []
-var xhr = new XMLHttpRequest();
-var responseText;
-
-
-function getSimple(symbol){
-    console.log("Now processing");
-    console.log(symbol);
-    url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+symbol+"&apikey=TXLZQ0VXP5QUYSXN";
-    xhr.open('get',url,true);
-    xhr.onreadystatechange = response;
-    xhr.send();
-
+//WATCHLIST - helper functions
+//1.get ticker from searchResult
+function searchResultTicker(){
+    var storageArray = JSON.parse(localStorage.getItem('searchResult'));
+    return storageArray['Global Quote']['01. symbol'];    
+    
 }
+//2. add a ticker to index of stock tickers   
+function addToStockIndex(ticker){
+    stockIndex=[];
+    var stockIndexObj = {ticker:ticker};
 
-// localStorage.setItem('indexArray','{"ticker:dummy"}');
-function response(){
-    if(xhr.readyState==4){
-        if(xhr.status==200){
+    if(localStorage.stockIndex){
+        stockIndex = JSON.parse(localStorage.getItem("stockIndex"));
+        stockIndex.push(stockIndexObj);
+        localStorage.stockIndex = JSON.stringify(stockIndex);
+        console.log("Ticker added to index in existence")
+       
+    } else {        
+        stockIndex.push(stockIndexObj);
+        localStorage.stockIndex = JSON.stringify(stockIndex);
+        console.log("Ticker added to new index");
+        
 
-            console.log("Response text created")
-            responseText = xhr.responseText; 
-            
-            //get ticker symbol from stock
-            
-            responseTextObject = JSON.parse(responseText);
-            console.log("ResponseTextObject created");
-            ticker = responseTextObject["Global Quote"]['01. symbol'];
-            console.log("Ticker set");
-            
-            //save ticker symbol to an array index in storage if indexArray.length < 2; (see add to watchlist)
-            //we will cycle through this array later to modify the storage value of the key matching the stock
-            //having a storage array ensures that only 2 stocks are added to watch list
-            //our goal is to put this function in a loop 
-            
-            indexArray=[];
-            if(localStorage.indexArray){
-                console.log("add to array");
-            }else{
-                console.log("creating an indexArray and object");
-                var indexArrayObj = {ticker:ticker};
-                indexArray.push(indexArrayObj);
-                console.log(indexArray);
-                localStorage.indexArray = JSON.stringify(indexArray);
-                localStorage.setItem(ticker,responseText);
-            }
-            //next quest: see if you can replace CVX local storage
-            //get a list of tickers in local storage (iterate through indexArray)
-            
-            //if ticker shows up in indexArray, just rewrite it using method above
-            //then see if this behaves in a loop with indexArray.length iterations
-
-            //write an updateMethod with button to see if it updates
-
-           /*Iterating through indexArray*/
-           var iterateObject;
-           iterateObject = JSON.parse(localStorage.getItem('indexArray'));
-           console.log("Iterate this");
-           console.log(iterateObject.length);
-           //iterateObject.forEach(each => console.log(each['ticker']));
-            // iterateObject.forEach(myFunction);
-            // function myFunction(index,item){
-            //     console.log(item);
-            //     console.log(index);
-            // }
-            for (var each of iterateObject){
-                console.log(each['ticker']);
-            }
-
-                       
-                //save that ticker symbol as the name of the storage for that stock
-
-        } else {
-            alert(xmlHttp.statusText);
-        }
     }
 }
+//3. add stock info to local storage with ticker as key
+function addStockToStorage(ticker){
+    var info = localStorage.getItem("searchResult");
+    localStorage.setItem(ticker,info);
+}
 
-/* ************attempt to make several calls from a loop **************/
-//attempt 2: 
-function loopSimple(){
-    for(var i=0;i<2;i++){
-        getSimple("cvx");
+//4. retrieve parsed stock info from local storage, ticker as key
+function retrieveStockInfo(ticker){
+    return JSON.parse(localStorage.getItem(ticker));
+}
+
+//5. delete a table if it exists: 
+function deleteTable(tableId){
+    if(document.getElementById(tableId) != null){
+        document.getElementById(tableId).remove();
+        console.log("Table deleted");
+    }
+
+}
+//6. display watchlist heading and contents
+function displayWatchlist(){
+    deleteTable("watchlistTb");
+    createTable("watchlistDiv","watchlistTb","watchlistRw");
+    
+    /* make API call to spy if not in local storage on first
+    load since there are dependencies on SPY being in storage */
+    if(!localStorage.spy){
+        console.log("no spy exists...calling stock & storing");
+        updateStockData("SPY");
         
     }
-    ///parsedArray = JSON.parse(permanentStockArray);
-    //console.log(parsedArray);
-    console.log(permanentStockArray);
-    //console.log(stockArray);
-}
-
-
-
-//attemp 1:
-// //i want to see if can run getSimple(symbol) in a loop to replace storage with 2 new symbols
-// function loopSimple(){
-//     //declare empty array
-//     //start loop for each item in storage:
-//         //get a new symbol
-//         //run the symbol through getSimple()
-//     //see if the full array got stored to local storage
-//     stockArray = []
-//     permanentStockArray = []
-//     var xhr = new XMLHttpRequest();
-//     var responseText;
-
-
-//     var storageObject = JSON.parse(localStorage.getItem('watchlist'));
-//     var symbol;
-//     for (var item in storageObject){
-//         console.log("Loop cycle: " + item);
-//         console.log("Loop ticker: ");
-//         console.log(storageObject[item]['ticker']);
-//         symbol = storageObject[item]['ticker'];
-//         console.log("The symbol going to getSimple() is:");
-//         console.log(symbol);
-//         getSimple(symbol);
-//     }
-
-//     console.log("Loop simple has ended with: ");
-//     console.log(permanentStockArray);
-
-
     
-
-
-/* *************************** FUNCTIONS *************************** */
-
-    function showStorage(){
-        //document.getElementById("storedData").innerHTML="Stored data";
-        console.log("Function working properly");     
-
-        var storageArray = JSON.parse(localStorage.getItem('watchlist'));
-        var arraylength = storageArray.length;
-        console.log("Attempting to print array length: ");
-        console.log(storageArray);
-        console.log(storageArray[0]);
-        console.log("Test of array notation: " + storageArray[0]['ticker']);
-        for (var item in storageArray){
-            console.log("Item:" + item);
-            console.log(storageArray[item]['ticker'])
-            if(storageArray[item]['ticker']=='AAPL'){
-                console.log("Deleting this from memory")
-                storageArray.splice(item,1);
-                console.log("item deleted from array");
-            }
-        }
-        console.log("Rewriting local storage");
-        localStorage.watchlist = JSON.stringify(storageArray);
-        //localStorage.setItem("watchlist",storageArray);
-
-    }
-
-    function deleteItem(){
-        //work on later
-    }
-
-    function refreshData(){
-        //get one symbol at time from watchlist
-        //use that symbol to call updated data
-        //stick that updated data in an array
-        //cycle through entire watchlist
-        //store the updated info to watchlist
-        console.log("refreshData: refreshData() working properly"); 
-        var storageObject = JSON.parse(localStorage.getItem('watchlist'));
-        var symbol;
-        var storageArray = [];
-;
-        for (var item in storageObject){
-            console.log("refreshData: cycling through item" + item);
-            //get a symbol from watchlist
-            symbol = storageObject[item]['ticker'];
-            console.log("refreshData: The symbol selected is: " + symbol);    
-            
-            //use that symbol to call updated data
-            console.log("refreshData: Api called and stored in an array")
-            tempStorage = getStockData2(symbol);
-            // storageArray.push(getStockData(symbol));
-            console.log("refreshData: Temp storage is: ")
-            console.log(typeof(tempStorage));
-            
-           
-        }
-        console.log("refreshData: Rewriting local storage");
-        //localStorage.watchlist = JSON.stringify(storageArray);
-        //localStorage.setItem("watchlist",storageArray);
-
-    }
-
-
-
-    //delete current results table if it exists so that only one table shows after stock search
-    function deleteTable(tableId){
-        if(document.getElementById(tableId) != null){
-            document.getElementById(tableId).remove();
-            console.log("Table deleted");
-        }
-
-    }
-
-    //general create table function for all tables in app
-    function createTable(elementId,tableId,rowId){
-
-        var t = document.createElement('table');
-        t.setAttribute("id", tableId);
-        document.getElementById(elementId).appendChild(t);
-      
-        var r = document.createElement('tr');
-        r.setAttribute("id", rowId);
-        document.getElementById(tableId).appendChild(r);
-      
-        var c = document.createElement('td');
-        var cinput = document.createTextNode("Symbol");
-        c.appendChild(cinput);
-        document.getElementById(rowId).appendChild(c);
-
-        var c2 = document.createElement('td');
-        var c2input = document.createTextNode("Date");
-        c2.appendChild(c2input);
-        document.getElementById(rowId).appendChild(c2);
-
-        var c3 = document.createElement('td');
-        var c3input = document.createTextNode("Current Price");
-        c3.appendChild(c3input);
-        document.getElementById(rowId).appendChild(c3);
-
-        var c4 = document.createElement('td');
-        var c4input = document.createTextNode("Previous Close");
-        c4.appendChild(c4input);
-        document.getElementById(rowId).appendChild(c4);
-
-        var c5 = document.createElement('td');
-        var c5input = document.createTextNode("Action");
-        c5.appendChild(c5input);
-        document.getElementById(rowId).appendChild(c5);
-
-        console.log("Table created");
-
-      }
-
-      //display results from initial request to get stock information
-      function displayResults(){
-        var stockJson = JSON.parse(localStorage.getItem('searchResult'));
-        var firstKey = Object.keys(stockJson)[0];
-        var ticker = stockJson["Global Quote"]["01. symbol"];
-        var currentPrice = stockJson["Global Quote"]["05. price"];
-        var previousClose = stockJson["Global Quote"]["08. previous close"];
-        var tradingDay = stockJson["Global Quote"]["07. latest trading day"];
-
-        if(firstKey=="Error Message"){
-            document.getElementById("dataDisplay").innerHTML="Invalid entry";
-
-        }else{    
-
-        //delete any output table if it exists
-        deleteTable("outputTable");
-         
-        //create the display table for the new stock entered
-        createTable("dataDisplay","outputTable","outputRow");
-
-        //append table with data from api call      
-        var tbl = document.getElementById("outputTable");
-         var row = tbl.insertRow();
-         var cell1 = row.insertCell();
-         var cell2 = row.insertCell();
-         var cell3 = row.insertCell();
-         var cell4 = row.insertCell();
-         var cell5 = row.insertCell();
-         cell1.innerHTML = ticker;
-         cell2.innerHTML = tradingDay;
-         cell3.innerHTML = currentPrice;
-         cell4.innerHTML = previousClose;
-         cell5.innerHTML = "<input type='button' onclick='addToWatchlist()' \
-            value='Add to Watchlist'></input>";
-            
-        };            
-
-      }
-
-      //create watchlist object for storing watchlist objects
-      var watchlistArray = []
-
-      //initialize local storage if it exists;  open it onload in body
-      function init(){ 
-        deleteTable("watchlistTable");  
-          if(localStorage.watchlist){            
-                watchlistArray = JSON.parse(localStorage.watchlist);
-                createTable("watchlist","watchlistTable","watchlistRow");
-                console.log("Watchlist Table created");          
-                for(var i=0; i<watchlistArray.length;i++){
-                    var index = i+1;
-                    var ticker = watchlistArray[i].ticker;
-                    var tradingDay = watchlistArray[i].tradingDay
-                    var currentPrice = watchlistArray[i].currentPrice;
-                    var previousClose = watchlistArray[i].previousClose;
-
-                    //set table variables
-                    var tbl = document.getElementById("watchlistTable");
-                    var row = tbl.insertRow();
-                    var cell1 = row.insertCell();
-                    var cell2 = row.insertCell();
-                    var cell3 = row.insertCell();
-                    var cell4 = row.insertCell();
-                    var cell5 = row.insertCell();
-                    row.setAttribute("id",ticker);
-                    cell1.innerHTML = ticker;
-                    cell2.innerHTML = tradingDay;
-                    cell3.innerHTML = currentPrice;
-                    cell4.innerHTML = previousClose;
-                    cell5.innerHTML = "<input type='button' onclick='removeFromWatchlist("+ticker+")' \
-                    value='Remove from Watchlist'></input>";                  
-                    
-                }
-          }
-      }
-      
-      function addToWatchlist(){
-        //verify if watchlist table exists
-        // if(document.getElementById("watchlistTable") == null){
-        //     createTable("watchlist","watchlistTable","watchlistRow");
-        //     console.log("Watchlist Table created");          
-        // } 
-
-        var storageArray = JSON.parse(localStorage.getItem('watchlist'));
-        if(storageArray==null || storageArray.length<2){
-        //set watchlist variables
-        var stockJson = JSON.parse(localStorage.getItem('searchResult'));
-        var ticker = stockJson["Global Quote"]["01. symbol"];
-        var tradingDay = stockJson["Global Quote"]["07. latest trading day"];
-        var currentPrice = stockJson["Global Quote"]["05. price"];
-        var previousClose = stockJson["Global Quote"]["08. previous close"];        
-
-        //create object and store new object to array
-        var watchlistObj = {ticker:ticker,tradingDay:tradingDay,currentPrice:currentPrice,previousClose:previousClose};
-        watchlistArray.push(watchlistObj);
-        console.log(watchlistArray);
-        //completely replace watchlist key/value with new array
-        localStorage.watchlist = JSON.stringify(watchlistArray);
-        }else{
-            console.log("Two items in watchlist")
-            document.getElementById("messageDiv").innerHTML = "You need to subscribe "/
-                "to our service to add more items to the watchlist.";
-        }
-
-        init();
+    if(localStorage.stockIndex){
+        stockIndexObject = JSON.parse(localStorage.stockIndex);
+    
+    for(var i=0;i<stockIndexObject.length;i++){
+       
+        var ticker = stockIndexObject[i].ticker;
+        var stockObject = retrieveStockInfo(ticker);
+        var tradingDay = stockObject["Global Quote"]["07. latest trading day"];
+        var currentPrice = stockObject["Global Quote"]["05. price"];
+        var previousClose = stockObject["Global Quote"]["08. previous close"];
 
         //set table variables
-        // var tbl = document.getElementById("watchlistTable");
-        // var row = tbl.insertRow();
-        // var cell1 = row.insertCell();
-        // var cell2 = row.insertCell();
-        // var cell3 = row.insertCell();
-        // var cell4 = row.insertCell();
-        // var cell5 = row.insertCell();
-        // cell1.innerHTML = ticker;
-        // cell2.innerHTML = tradingDay;
-        // cell3.innerHTML = currentPrice;
-        // cell4.innerHTML = previousClose;
-        // cell5.innerHTML = "<input type='button' id = watchlistArray[0] onclick='removeFromWatchlist()' \
-        //    value='Remove from Watchlist'></input>";
-
+        var tbl = document.getElementById("watchlistTb");
+        var row = tbl.insertRow();
+        var cell1 = row.insertCell();
+        var cell2 = row.insertCell();
+        var cell3 = row.insertCell();
+        var cell4 = row.insertCell();
+        var cell5 = row.insertCell();
+        row.setAttribute("id",ticker);
+        cell1.innerHTML = ticker;
+        cell2.innerHTML = tradingDay;
+        cell3.innerHTML = previousClose;
+        cell4.innerHTML = currentPrice;  
+        //set classes to animate cells based on price relative to previous close 
+        if(currentPrice>previousClose){
+            cell4.setAttribute("class","goodNews");
+        }else{
+            cell4.setAttribute("class","badNews");
+        }
+         
+        cell5.innerHTML = "<input type='button' onclick='removeFromWatchlist("+ticker+")' \
+        value='Remove'></input>";  
     }
 
-    function removeFromWatchlist(index){
-        //get rid of elementbyidindex which is currently ticker
-        var tbl = document.getElementById("watchlistTable");
-        tbl.deleteRow(index);
-
     }
+    
 
-    /*
-    Full data comes in like this:
-
-{
-    "Global Quote": {
-        "01. symbol": "AAPL",
-        "02. open": "267.4800",
-        "03. high": "271.0000",
-        "04. low": "267.3000",
-        "05. price": "270.7100",
-        "06. volume": "25447644",
-        "07. latest trading day": "2019-12-06",
-        "08. previous close": "265.5800",
-        "09. change": "5.1300",
-        "10. change percent": "1.9316%"
-    }
+    
+    
 }
 
-    */
+//7. remove items from watchlist and watchlist display
+function removeFromWatchlist(ticker){
+    //remove from local storage (ticker comes in as object, not string):
+    
+    tickerString = ticker.attributes.id.nodeValue
+
+    //remove from index
+    stockIndexObject = JSON.parse(localStorage.stockIndex);
+    
+    /*start iteration from end of Object since index values will get deleted, and 
+        going forward will cause a skip or out of index bounds error*/
+    console.log('starting loop')
+    for (var i = (stockIndexObject.length-1); i>=0;i--){
+
+        if (stockIndexObject[i]['ticker']==tickerString){            
+            stockIndexObject.splice(i,1);
+        }  
+        console.log(stockIndexObject);      
+    }
+    localStorage.removeItem(tickerString);
+    localStorage.stockIndex = JSON.stringify(stockIndexObject);
+    
+    //refresh table so that a new index order can be established if more deletions
+    displayWatchlist();
+}
+
+function refreshQuotes(){
+    
+    //verify if .stockIndex exists: 
+    if(localStorage.stockIndex){
+          
+        var stockIndexObject = JSON.parse(localStorage.stockIndex);
+        console.log("pulling stocks from index and calling each one");
+        for (var each of stockIndexObject){       
+            var ticker = each.ticker
+            updateStockData(ticker);
+            setTimeout(function(){console.log("Just waited 3 seconds for stock to update")},300)
+            
+        }
+    
+        insertRefreshTime();
+
+    
+        displayWatchlist();
+
+    }
+   
+
+   
+   
+}
+
+function insertRefreshTime(){
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    var d = new Date();
+    var month = months[d.getMonth()];
+    var day = days[d.getDay()];
+    var hr = d.getHours();
+    var min = d.getMinutes();
+    if(min<10){
+        min = "0" + min;
+    }
+    var refreshTime = day + " " + month + " " + d.getDate() + " " + hr + ":" + min
+    document.getElementById("lastUpdatedDiv").innerHTML=refreshTime;
+
+}
+
+/* *************************** Animation Functions *************************** */
+
+
+/* ***Bar Graph - Market Volum *** */
+function seeVolume(){
+    //average spy volume is 60M
+    const spyAverageVolume = 60000000;
+    //wait a few seconds to make sure spy data gets loaded in storage
+    
+    //make API call to spy if not in local storage
+    if(!localStorage.spy){updateStockData("SPY");}
+
+    //retrieve volume from spy and create a percentage: 
+    var spyVolume = JSON.parse(localStorage.getItem("SPY"))["Global Quote"]["06. volume"]
+    var spyVolumePercent = Math.round((spyVolume/spyAverageVolume*100));
+    if(spyVolumePercent>100){
+        spyVolumePercent=100;
+    }
+    console.log(spyVolumePercent);
+    volumeBar = document.getElementById("volumeBar");
+    volumeBar.style.width = spyVolumePercent +  "%";
+}
+
+/* ***Bar Graph - Market Volume - Make Bar disappear/reappear *** */
+function toggleVolume(){
+    var barchart = document.getElementById("volumeDiv");    
+    barchart.style.transition ="opacity 1.0s linear 0s";
+
+    //if opacity property doesn't exist, assign it 1
+    if(!barchart.style.opacity){
+        barchart.style.opacity = 1;
+    }
+   
+    //if opacity 1, then make opacity 0 and change button value
+    if(barchart.style.opacity==1){
+        console.log("first if statement reached");
+        barchart.style.opacity=0;
+        var button = document.getElementById("toggleButton");
+        button.value = "See Volume";
+        console.log("Opacity value:");
+        console.log(barchart.style.opacity);
+    }else{
+        console.log("else statement reached");
+        barchart.style.opacity=1;
+        var button = document.getElementById("toggleButton");
+        button.value = "Remove Volume";
+        console.log("Opacity value:");
+        console.log(barchart.style.opacity);
+
+    }
+    
+}
+
+/* ***Brings in title of the page *** */
+
+
+function animateStartup(){
+    var myElement = document.getElementById("pageTitle");
+    console.log("animation block started")
+    document.getElementById("pageTitle").style.animation=
+        "startupAnimation 1s 1";
+    myElement.style.transition="top 1.0s linear 0s";
+    myElement.style.top="0px";
+    
+}
+
+/* ** test time out function * **/
+function wait(){
+    console.log("Wait time started");
+    setTimeout(function(){console.log("In wait(); just waited 2 seconds");},2000)
+    console.log("Wait time ended");
+}

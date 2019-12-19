@@ -8,28 +8,56 @@
         <script type="text/javascript" src="main.js"></script>
         <title>Final</title>
     </head>
-<body onload="init()">
+<body onload=
+    "
+    animateStartup();    
+    displayWatchlist();
+    setInterval(refreshQuotes,60000);  
+    setTimeout(seeVolume,1500);
+    
+    
+    ">
 
+        <div id = "wrapper">
+            <div id="pageTitle"><h1>Watchlist Tracker</h1></div>
+            
+            
+            <div id="volumeTitle"><p>Current SPY Volume vs. SPY Average Volume</p></div>
+            
+            <div id = "volumeDiv" >                              
+                <div id="volumeBar" onload="seeVolume(this)"></div>
+            </div>
+            <div id="volumeButtonDiv">
+                <input type="button" id = "toggleButton" 
+                    onclick="toggleVolume()" value="Remove Volume">
+                    </input>
+            </div>
         
-        <input type="text" id = "userInput" ></input>
-        <p>Type symbols like 'AAPL', 'CVX', or 'SPY'</p>
-        <input type="button" onclick="getStockData()" value="Get Stock Info"></input> 
+            <div id="inputDiv">
+                <p>Search by symbol (aapl, cvx, etc):</p>
+                <input type="text" id = "userInput" ></input>
+                <input type="button" onclick="getStockData
+                    (document.getElementById('userInput').value.trim().replace(/[\n\r]/g, ''))" 
+                    value="Get Stock Info"></input> 
+            </div><!--Close inputDiv-->
+       
+            <div id="dataDisplay"></div>
 
-        <input type="button" onclick="showStorage()" value="Show Stored Data"></input>
-        <input type="button" onclick="refreshData()" value="Refresh Data"></input>  
-        <input type="button" onclick="getStockData2('aapl')" value="Test AJAX"></input>  
-        <input type="button" onclick="getSimple('cvx')" value="Test getSimple('cvx')"></input>  
-        <input type="button" onclick="loopSimple()" value="Simple Loop"></input>  
-        
-    <div id="storedData"></div>      
-    <div id="messageDiv"></div>
-    <div id="dataDisplay"></div>
+            <div id="watchlistDiv"> 
+                <h2>Current Watchlist</h2>
+            </div>
 
-    <div id="watchlist">
+            <div id="watchlistUpdate">
+                <input type="button" onclick="refreshQuotes()" value="refresh"></input> 
+                <p>Last updated:</p>
+                <div id="lastUpdatedDiv"></div>
+            </div>
 
 
 
-    </div>
+        </div><!--Close Wrapper-->
+
+    
 
 </body>
 </html>

@@ -1,0 +1,13 @@
+#outputTable{
+   border: 1px solid black; 
+   padding: 0;
+}
+#outputTable tr{
+    border: 1px solid blue; 
+    padding: .25em;
+ }
+
+ #outputTable td{
+    border: 1px solid black; 
+    padding: .25em;
+ }
